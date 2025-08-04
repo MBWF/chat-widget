@@ -1,28 +1,48 @@
 import { Button } from "@/components/ui";
 import { useChat } from "@/hooks/useChat";
-import { cn } from "@/lib/utils";
+import { mergeStyles } from "@/lib/utils";
 import { handleColor } from "@/utils/handle-styling";
 import { MessageCircleMore, XIcon } from "lucide-react";
+import type { CustomStyles } from "@/types";
 
-export function FloattingButton() {
+type FloattingButtonProps = {
+  customStyles?: CustomStyles;
+};
+
+export function FloattingButton({ customStyles }: FloattingButtonProps) {
   const { isOnline, isMaintenanceMode, toggleWidget, isOpen } = useChat();
 
   const handleChangeColor = handleColor({ isOnline, isMaintenanceMode });
+
+  const defaultButtonClasses = `w-14 h-14 rounded-full shadow-lg transition-all duration-200 hover:scale-105 ${handleChangeColor}`;
 
   return (
     <div className="relative">
       <Button
         aria-label={isOpen ? "Close chat" : "Open chat"}
         onClick={toggleWidget}
-        className={cn(
-          "w-14 h-14 rounded-full shadow-lg transition-all duration-200 hover:scale-105",
-          handleChangeColor
+        className={mergeStyles(
+          defaultButtonClasses,
+          customStyles,
+          "floatingButton"
         )}
       >
         {isOpen ? (
-          <XIcon className="w-6 h-6" />
+          <XIcon
+            className={mergeStyles(
+              "w-6 h-6",
+              customStyles,
+              "floatingButtonIcon"
+            )}
+          />
         ) : (
-          <MessageCircleMore className="w-6 h-6" />
+          <MessageCircleMore
+            className={mergeStyles(
+              "w-6 h-6",
+              customStyles,
+              "floatingButtonIcon"
+            )}
+          />
         )}
       </Button>
     </div>

@@ -1,8 +1,14 @@
 import { Textarea } from "@/components/ui";
 import { useChat } from "@/hooks/useChat";
 import { InputHelperText, SendButton } from "./components";
+import { mergeStyles } from "@/lib/utils";
+import type { CustomStyles } from "@/types";
 
-export function ChatInput() {
+type ChatInputProps = {
+  customStyles?: CustomStyles;
+};
+
+export function ChatInput({ customStyles }: ChatInputProps) {
   const {
     currentInput,
     setCurrentInput,
@@ -33,14 +39,24 @@ export function ChatInput() {
   const maxLength = 250;
 
   return (
-    <div className="p-4 border-t border-gray-200">
+    <div
+      className={mergeStyles(
+        "p-4 border-t border-gray-200",
+        customStyles,
+        "inputContainer"
+      )}
+    >
       <div className="relative">
         <Textarea
           value={currentInput}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
           disabled={isDisabled}
-          className="rounded-2xl resize-none px-4 pr-12 max-h-24"
+          className={mergeStyles(
+            "rounded-2xl resize-none px-4 pr-12 max-h-24",
+            customStyles,
+            "inputField"
+          )}
           maxLength={maxLength}
           placeholder={
             isMaintenanceMode
@@ -50,13 +66,18 @@ export function ChatInput() {
               : "Type your message... (Press Enter to send)"
           }
         />
-        <SendButton onSend={handleSubmit} canSend={canSend} />
+        <SendButton
+          onSend={handleSubmit}
+          canSend={canSend}
+          customStyles={customStyles}
+        />
       </div>
 
       <InputHelperText
         isLoading={isLoading}
         currentInputLength={currentInput.length}
         maxLength={maxLength}
+        customStyles={customStyles}
       />
     </div>
   );

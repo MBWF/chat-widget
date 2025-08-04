@@ -1,15 +1,24 @@
 import { useChat } from "@/hooks/useChat";
-import { cn } from "@/lib/utils";
+import { mergeStyles } from "@/lib/utils";
 import { getStatusColor } from "@/utils/handle-styling";
+import type { CustomStyles } from "@/types";
 
-export function StatusBadge() {
+type StatusBadgeProps = {
+  customStyles?: CustomStyles;
+};
+
+export function StatusBadge({ customStyles }: StatusBadgeProps) {
   const { isOnline, isMaintenanceMode } = useChat();
 
   const statusColor = getStatusColor({ isOnline, isMaintenanceMode });
 
   return (
     <div
-      className={cn("w-4 h-4 rounded-full border-2 border-white", statusColor)}
+      className={mergeStyles(
+        `w-4 h-4 rounded-full border-2 border-white ${statusColor}`,
+        customStyles,
+        "statusBadge"
+      )}
     />
   );
 }

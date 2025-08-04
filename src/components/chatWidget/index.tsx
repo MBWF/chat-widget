@@ -2,19 +2,14 @@ import { useChat } from "@/hooks/useChat";
 import { useEffect } from "react";
 import { ChatOpen } from "./chat-open";
 import { FloattingButton } from "./floatting-button";
-
-export type ChatWidgetProps = {
-  agentName: string;
-  isOnline?: boolean;
-  isMaintenanceMode?: boolean;
-  introductionWrapper?: React.ReactNode;
-};
+import type { ChatWidgetProps } from "@/types";
 
 function ChatWidget({
   agentName,
   isOnline = true,
   isMaintenanceMode = false,
   introductionWrapper,
+  customStyles,
 }: ChatWidgetProps) {
   const { isOpen, setOnlineStatus, setMaintenanceMode } = useChat();
 
@@ -32,9 +27,10 @@ function ChatWidget({
         <ChatOpen
           introductionWrapper={introductionWrapper}
           agentName={agentName}
+          customStyles={customStyles}
         />
       )}
-      <FloattingButton />
+      <FloattingButton customStyles={customStyles} />
     </>
   );
 }

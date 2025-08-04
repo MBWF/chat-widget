@@ -1,18 +1,29 @@
-interface InputHelperTextProps {
+import { mergeStyles } from "@/lib/utils";
+import type { CustomStyles } from "@/types";
+
+export interface InputHelperTextProps {
   isLoading: boolean;
   currentInputLength: number;
   maxLength: number;
+  customStyles?: CustomStyles;
 }
 
 export function InputHelperText({
   isLoading,
   currentInputLength,
   maxLength,
+  customStyles,
 }: InputHelperTextProps) {
   const warningThreshold = Math.floor(maxLength * 0.9); // 90% of max length
 
   return (
-    <div className="flex justify-between items-center mt-2 text-xs text-gray-500">
+    <div
+      className={mergeStyles(
+        "flex justify-between items-center mt-2 text-xs text-gray-500",
+        customStyles,
+        "inputHelperText"
+      )}
+    >
       <span>
         {isLoading
           ? "Sending..."

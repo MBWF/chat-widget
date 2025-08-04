@@ -1,6 +1,19 @@
-export function LoadingIndicator() {
+import { mergeStyles } from "@/lib/utils";
+import type { CustomStyles } from "@/types";
+
+type LoadingIndicatorProps = {
+  customStyles?: CustomStyles;
+};
+
+export function LoadingIndicator({ customStyles }: LoadingIndicatorProps) {
   return (
-    <div className="flex justify-start mb-4">
+    <div
+      className={mergeStyles(
+        "flex justify-start mb-4",
+        customStyles,
+        "loadingIndicator"
+      )}
+    >
       <div className="bg-gray-200 text-gray-800 rounded-lg rounded-bl-sm px-4 py-2">
         <div className="flex space-x-1">
           <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>

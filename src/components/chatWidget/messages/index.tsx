@@ -1,8 +1,15 @@
 import { useChat } from "@/hooks/useChat";
+import { mergeStyles } from "@/lib/utils";
+import type { CustomStyles } from "@/types";
 import { useEffect, useRef } from "react";
-import { EmptyState, LoadingIndicator, MessageBubble } from "./components";
+import { LoadingIndicator, MessageBubble } from "./components";
 
-export function Messages() {
+type MessagesProps = {
+  customStyles?: CustomStyles;
+  introductionWrapper?: React.ReactNode;
+};
+
+export function Messages({ customStyles, introductionWrapper }: MessagesProps) {
   const { messages, isLoading, isMaintenanceMode } = useChat();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -15,15 +22,24 @@ export function Messages() {
   }, [messages, isLoading]);
 
   return (
-    <div className="flex-1 overflow-y-auto p-4 space-y-2">
-      {messages.length === 0 && !isMaintenanceMode ? (
-        <EmptyState />
-      ) : (
-        messages.map((message) => (
-          <MessageBubble key={message.id} message={message} />
-        ))
+    <div
+      className={mergeStyles(
+        "flex-1 overflow-y-auto bg-white p-4 space-y-2",
+        customStyles,
+        "messageList"
       )}
-      {isLoading && <LoadingIndicator />}
+    >
+      {introductionWrapper}
+      {messages.length !== 0 &&
+        !isMaintenanceMode &&
+        messages.map((message) => (
+          <MessageBubble
+            key={message.id}
+            message={message}
+            customStyles={customStyles}
+          />
+        ))}
+      {isLoading && <LoadingIndicator customStyles={customStyles} />}
       <div ref={messagesEndRef} />
     </div>
   );

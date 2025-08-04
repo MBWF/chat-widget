@@ -88,6 +88,7 @@ function App() {
 | `isOnline` | `boolean` | `true` | Online/offline status indicator |
 | `isMaintenanceMode` | `boolean` | `false` | Enables maintenance mode banner |
 | `introductionWrapper` | `ReactNode` | `undefined` | Custom welcome message component |
+| `customStyles` | `CustomStyles` | `undefined` | Custom CSS classes for widget components |
 
 ### Advanced Usage with Store
 
@@ -108,26 +109,62 @@ function CustomChatComponent() {
 }
 ```
 
-## 🎨 Styling
+## 🎨 Styling & Customization
 
-The widget comes with built-in Tailwind CSS styles. Import the CSS file:
+The widget comes with built-in Tailwind CSS styles and supports extensive customization through the `customStyles` prop.
 
 ```tsx
 import 'eloquent-chat-widget/styles';
 ```
 
-### Custom Styling
+### Custom Styles (Recommended)
 
-You can override the default styles by targeting the component classes:
+Use the `customStyles` prop to customize the widget appearance:
+
+```tsx
+import { ChatWidget, CustomStyles } from 'eloquent-chat-widget';
+
+const customStyles: CustomStyles = {
+  container: "bg-blue-50 border-2 border-blue-200",
+  header: "bg-blue-600 text-white",
+  userMessageBubble: "bg-blue-600 text-white",
+  assistantMessageBubble: "bg-white border border-gray-200",
+  inputField: "border-2 border-blue-300 focus:border-blue-500",
+  sendButton: "bg-blue-600 hover:bg-blue-700",
+  floatingButton: "bg-blue-600 hover:bg-blue-700 shadow-lg"
+};
+
+function App() {
+  return (
+    <ChatWidget
+      agentName="Custom AI"
+      customStyles={customStyles}
+    />
+  );
+}
+```
+
+### Available Customization Options
+
+The `CustomStyles` interface provides customization for:
+
+- **Container**: `container` - Main widget container
+- **Header**: `header`, `headerTitle`, `headerLogo`, `statusBadge`
+- **Messages**: `messageContainer`, `messageList`, `messageBubble`, `userMessageBubble`, `assistantMessageBubble`
+- **Input**: `inputContainer`, `inputField`, `sendButton`, `inputHelperText`
+- **Floating Button**: `floatingButton`, `floatingButtonIcon`
+- **Other**: `maintenanceBanner`, `emptyState`, `loadingIndicator`
+
+For detailed customization examples and best practices, see the [Customization Guide](CUSTOMIZATION_GUIDE.md).
+
+### Legacy CSS Override (Not Recommended)
+
+You can still override styles with CSS, but the `customStyles` prop is preferred:
 
 ```css
 /* Custom chat widget styles */
 .chat-widget-container {
   /* Your custom styles */
-}
-
-.chat-message-bubble {
-  /* Custom message bubble styles */
 }
 ```
 
@@ -146,13 +183,18 @@ The widget automatically handles:
 Full TypeScript support is included with proper type definitions:
 
 ```tsx
-import type { Message, ChatWidgetProps } from 'eloquent-chat-widget';
+import type { Message, ChatWidgetProps, CustomStyles } from 'eloquent-chat-widget';
 
 const customMessage: Message = {
   id: 'custom-1',
   content: 'Hello!',
   sender: 'user',
   timestamp: new Date(),
+};
+
+const customStyles: CustomStyles = {
+  container: "bg-gradient-to-br from-blue-50 to-indigo-100",
+  header: "bg-blue-600 text-white"
 };
 ```
 

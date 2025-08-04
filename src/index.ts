@@ -1,3 +1,4 @@
 import "./index.css";
 
-export { ChatWidget, type ChatWidgetProps } from "./components/chatWidget";
+export { ChatWidget } from "./components/chatWidget";
+export type { ChatWidgetProps, CustomStyles } from "./types";
