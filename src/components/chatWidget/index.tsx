@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { ChatOpen } from "./chat-open";
 import { FloattingButton } from "./floatting-button";
 
-type ChatWidgetProps = {
+export type ChatWidgetProps = {
   agentName: string;
   isOnline?: boolean;
   isMaintenanceMode?: boolean;
@@ -39,4 +39,4 @@ function ChatWidget({
   );
 }
 
-export default ChatWidget;
+export { ChatWidget };
