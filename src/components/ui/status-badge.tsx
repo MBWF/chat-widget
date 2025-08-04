@@ -1,8 +1,7 @@
-import React from "react";
-import { getStatusColor } from "../../../utils/handle-styling";
 import { useChat } from "@/hooks/useChat";
+import { getStatusColor } from "@/utils/handle-styling";
 
-export const StatusBadge = React.memo(() => {
+export function StatusBadge() {
   const { isOnline, isMaintenanceMode } = useChat();
 
   return (
@@ -13,6 +12,4 @@ export const StatusBadge = React.memo(() => {
       })}`}
     />
   );
-});
-
-StatusBadge.displayName = "StatusBadge";
+}

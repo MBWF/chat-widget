@@ -1,8 +1,8 @@
 import { useChat } from "@/hooks/useChat";
-import { memo, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { EmptyState, LoadingIndicator, MessageBubble } from "./components";
 
-function Messages() {
+export function Messages() {
   const { messages, isLoading, isMaintenanceMode } = useChat();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -31,5 +31,3 @@ function Messages() {
     </div>
   );
 }
-
-export default memo(Messages);

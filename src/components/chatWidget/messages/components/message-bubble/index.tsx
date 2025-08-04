@@ -1,11 +1,10 @@
 import type { Message } from "@/types";
-import { memo } from "react";
 
 interface MessageBubbleProps {
   message: Message;
 }
 
-function MessageBubble({ message }: MessageBubbleProps) {
+export function MessageBubble({ message }: MessageBubbleProps) {
   const isUser = message.sender === "user";
 
   return (
@@ -35,5 +34,3 @@ function MessageBubble({ message }: MessageBubbleProps) {
     </div>
   );
 }
-
-export default memo(MessageBubble);

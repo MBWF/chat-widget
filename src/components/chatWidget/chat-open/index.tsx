@@ -1,15 +1,14 @@
 import { Button, StatusBadge } from "@/components/ui";
 import { useChat } from "@/hooks/useChat";
 import { XIcon } from "lucide-react";
-import { memo } from "react";
-import Messages from "../messages";
-import ChatInput from "../chat-input";
+import { Messages } from "../messages";
+import { ChatInput } from "./chat-input";
 
 type ChatOpenProps = {
   introductionWrapper?: React.ReactNode;
 };
 
-function ChatOpen({ introductionWrapper }: ChatOpenProps) {
+export function ChatOpen({ introductionWrapper }: ChatOpenProps) {
   const { isMaintenanceMode, toggleWidget } = useChat();
 
   return (
@@ -50,5 +49,3 @@ function ChatOpen({ introductionWrapper }: ChatOpenProps) {
     </div>
   );
 }
-
-export default memo(ChatOpen);

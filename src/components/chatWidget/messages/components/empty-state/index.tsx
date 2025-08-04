@@ -1,4 +1,4 @@
-export default function EmptyState() {
+export function EmptyState() {
   return (
     <div className="flex items-center justify-center text-gray-500">
       <div className="text-center">

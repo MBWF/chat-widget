@@ -1,10 +1,8 @@
 import { Textarea } from "@/components/ui";
 import { useChat } from "@/hooks/useChat";
-import { memo, useCallback } from "react";
-import { InputHelperText } from "./input-helper-text";
-import { SendButton } from "./send-button";
+import { InputHelperText, SendButton } from "./components";
 
-function ChatInput() {
+export function ChatInput() {
   const {
     currentInput,
     setCurrentInput,
@@ -13,28 +11,22 @@ function ChatInput() {
     isLoading,
   } = useChat();
 
-  const handleInputChange = useCallback(
-    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setCurrentInput(e.target.value);
-    },
-    [setCurrentInput]
-  );
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setCurrentInput(e.target.value);
+  };
 
-  const handleSubmit = useCallback(async () => {
+  const handleSubmit = async () => {
     if (!currentInput.trim() || isMaintenanceMode || isLoading) return;
 
     await sendMessage(currentInput);
-  }, [currentInput, sendMessage, isMaintenanceMode, isLoading]);
+  };
 
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-      if (e.key === "Enter" && !e.shiftKey) {
-        e.preventDefault();
-        handleSubmit();
-      }
-    },
-    [handleSubmit]
-  );
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit();
+    }
+  };
 
   const isDisabled = isMaintenanceMode || isLoading;
   const canSend = currentInput.trim().length > 0 && !isDisabled;
@@ -69,5 +61,3 @@ function ChatInput() {
     </div>
   );
 }
-
-export default memo(ChatInput);

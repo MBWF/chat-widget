@@ -1,13 +1,12 @@
-import React from "react";
-import { ArrowUp } from "lucide-react";
 import { Button } from "@/components/ui";
+import { ArrowUp } from "lucide-react";
 
 interface SendButtonProps {
   onSend: () => void;
   canSend: boolean;
 }
 
-export const SendButton = React.memo<SendButtonProps>(({ onSend, canSend }) => {
+export function SendButton({ onSend, canSend }: SendButtonProps) {
   return (
     <Button
       onClick={onSend}
@@ -23,4 +22,4 @@ export const SendButton = React.memo<SendButtonProps>(({ onSend, canSend }) => {
       <ArrowUp className="w-4 h-4" />
     </Button>
   );
-});
+}

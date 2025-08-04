@@ -1,4 +1,4 @@
-export default function LoadingIndicator() {
+export function LoadingIndicator() {
   return (
     <div className="flex justify-start mb-4">
       <div className="bg-gray-200 text-gray-800 rounded-lg rounded-bl-sm px-4 py-2">
