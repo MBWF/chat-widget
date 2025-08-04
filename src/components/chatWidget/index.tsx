@@ -10,7 +10,7 @@ type ChatWidgetProps = {
   introductionWrapper?: React.ReactNode;
 };
 
-export function ChatWidget({
+function ChatWidget({
   agentName,
   isOnline = true,
   isMaintenanceMode = false,
@@ -38,3 +38,5 @@ export function ChatWidget({
     </>
   );
 }
+
+export default ChatWidget;

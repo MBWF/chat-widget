@@ -1,69 +1,222 @@
-# React + TypeScript + Vite
+# Eloquent Chat Widget
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, embeddable chat widget built with React, TypeScript, and Zustand for seamless customer support integration.
 
-Currently, two official plugins are available:
+[![npm version](https://badge.fury.io/js/eloquent-chat-widget.svg)](https://badge.fury.io/js/eloquent-chat-widget)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## Expanding the ESLint configuration
+- 🚀 **Modern Stack**: Built with React 18+, TypeScript, and Zustand
+- 💾 **Persistent Storage**: Automatic message history with localStorage
+- 🎨 **Customizable**: Easy theming and styling options
+- 📱 **Responsive**: Works perfectly on desktop and mobile
+- 🔧 **Easy Integration**: Drop-in component with minimal setup
+- 🎯 **TypeScript**: Full type safety and IntelliSense support
+- ⚡ **Lightweight**: Optimized bundle size with tree-shaking
+- 🔄 **State Management**: Powered by Zustand for optimal performance
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📦 Installation
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install eloquent-chat-widget
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+yarn add eloquent-chat-widget
 ```
+
+```bash
+pnpm add eloquent-chat-widget
+```
+
+## 🚀 Quick Start
+
+### Basic Usage
+
+```tsx
+import { ChatWidget } from 'eloquent-chat-widget';
+import 'eloquent-chat-widget/styles';
+
+function App() {
+  return (
+    <div>
+      <h1>My Website</h1>
+      <ChatWidget 
+        agentName="Support Agent"
+        isOnline={true}
+        isMaintenanceMode={false}
+      />
+    </div>
+  );
+}
+```
+
+### Advanced Usage with Custom Introduction
+
+```tsx
+import { ChatWidget } from 'eloquent-chat-widget';
+import 'eloquent-chat-widget/styles';
+
+function App() {
+  return (
+    <ChatWidget 
+      agentName="Eloquent AI"
+      isOnline={true}
+      isMaintenanceMode={false}
+      introductionWrapper={
+        <div className="text-center p-4">
+          <img src="/logo.png" alt="Logo" className="w-12 h-12 mx-auto mb-2" />
+          <h3 className="font-bold">Welcome to Support!</h3>
+          <p className="text-sm text-gray-600">
+            How can we help you today?
+          </p>
+        </div>
+      }
+    />
+  );
+}
+```
+
+## 📖 API Reference
+
+### ChatWidget Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `agentName` | `string` | **Required** | Name displayed in the chat header |
+| `isOnline` | `boolean` | `true` | Online/offline status indicator |
+| `isMaintenanceMode` | `boolean` | `false` | Enables maintenance mode banner |
+| `introductionWrapper` | `ReactNode` | `undefined` | Custom welcome message component |
+
+### Advanced Usage with Store
+
+```tsx
+import { useChatStore } from 'eloquent-chat-widget';
+
+function CustomChatComponent() {
+  const { messages, sendMessage, clearMessages } = useChatStore();
+  
+  return (
+    <div>
+      <button onClick={() => clearMessages()}>
+        Clear Chat History
+      </button>
+      <p>Total messages: {messages.length}</p>
+    </div>
+  );
+}
+```
+
+## 🎨 Styling
+
+The widget comes with built-in Tailwind CSS styles. Import the CSS file:
+
+```tsx
+import 'eloquent-chat-widget/styles';
+```
+
+### Custom Styling
+
+You can override the default styles by targeting the component classes:
+
+```css
+/* Custom chat widget styles */
+.chat-widget-container {
+  /* Your custom styles */
+}
+
+.chat-message-bubble {
+  /* Custom message bubble styles */
+}
+```
+
+## 🔧 Configuration
+
+### Environment Setup
+
+The widget automatically handles:
+- Message persistence in localStorage
+- Date serialization/deserialization
+- Error recovery for corrupted data
+- Responsive design adaptation
+
+### TypeScript Support
+
+Full TypeScript support is included with proper type definitions:
+
+```tsx
+import type { Message, ChatWidgetProps } from 'eloquent-chat-widget';
+
+const customMessage: Message = {
+  id: 'custom-1',
+  content: 'Hello!',
+  sender: 'user',
+  timestamp: new Date(),
+};
+```
+
+## 🌟 Examples
+
+### Integration with Next.js
+
+```tsx
+// pages/_app.tsx or app/layout.tsx
+import 'eloquent-chat-widget/styles';
+
+// components/ChatSupport.tsx
+import dynamic from 'next/dynamic';
+
+const ChatWidget = dynamic(
+  () => import('eloquent-chat-widget').then(mod => ({ default: mod.ChatWidget })),
+  { ssr: false }
+);
+
+export default function ChatSupport() {
+  return (
+    <ChatWidget 
+      agentName="Support Team"
+      isOnline={true}
+    />
+  );
+}
+```
+
+### Integration with Vite/React
+
+```tsx
+// main.tsx
+import 'eloquent-chat-widget/styles';
+
+// App.tsx
+import { ChatWidget } from 'eloquent-chat-widget';
+
+function App() {
+  return (
+    <>
+      {/* Your app content */}
+      <ChatWidget agentName="AI Assistant" />
+    </>
+  );
+}
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🐛 Issues
+
+If you find a bug or have a feature request, please open an issue on [GitHub](https://github.com/yourusername/eloquent-chat-widget/issues).
+
+## 📞 Support
+
+For support, email your.email@example.com or join our community discussions.
+
+---
+
+Made with ❤️ by [Your Name](https://github.com/yourusername)

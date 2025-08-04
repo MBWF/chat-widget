@@ -26,3 +26,10 @@ export interface ChatActions {
 }
 
 export type ChatContextType = ChatState & ChatActions;
+
+export interface ChatWidgetProps {
+  agentName: string;
+  isOnline?: boolean;
+  isMaintenanceMode?: boolean;
+  introductionWrapper?: React.ReactNode;
+}
