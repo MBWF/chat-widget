@@ -3,7 +3,7 @@ import { persist } from "zustand/middleware";
 import type { Message, ChatContextType, ChatState } from "@/types";
 
 const initialState: ChatState = {
-  isOpen: false,
+  isOpen: true,
   isOnline: true,
   isLoading: false,
   isMaintenanceMode: false,

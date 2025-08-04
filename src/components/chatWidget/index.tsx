@@ -4,13 +4,17 @@ import { ChatOpen } from "./chat-open";
 import { FloattingButton } from "./floatting-button";
 
 type ChatWidgetProps = {
+  agentName: string;
   isOnline?: boolean;
   isMaintenanceMode?: boolean;
+  introductionWrapper?: React.ReactNode;
 };
 
 export function ChatWidget({
+  agentName,
   isOnline = true,
   isMaintenanceMode = false,
+  introductionWrapper,
 }: ChatWidgetProps) {
   const { isOpen, setOnlineStatus, setMaintenanceMode } = useChat();
 
@@ -23,9 +27,14 @@ export function ChatWidget({
   }, [isMaintenanceMode, setMaintenanceMode]);
 
   return (
-    <div>
-      {isOpen && <ChatOpen />}
+    <>
+      {isOpen && (
+        <ChatOpen
+          introductionWrapper={introductionWrapper}
+          agentName={agentName}
+        />
+      )}
       <FloattingButton />
-    </div>
+    </>
   );
 }

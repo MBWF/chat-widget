@@ -1,31 +1,22 @@
-import { Button, StatusBadge } from "@/components/ui";
 import { useChat } from "@/hooks/useChat";
-import { XIcon } from "lucide-react";
 import { Messages } from "../messages";
 import { ChatInput } from "./chat-input";
+import { StatusBadge } from "@/components/ui";
 
 type ChatOpenProps = {
   introductionWrapper?: React.ReactNode;
+  agentName: string;
 };
 
-export function ChatOpen({ introductionWrapper }: ChatOpenProps) {
-  const { isMaintenanceMode, toggleWidget } = useChat();
+export function ChatOpen({ introductionWrapper, agentName }: ChatOpenProps) {
+  const { isMaintenanceMode } = useChat();
 
   return (
     <div className="bg-white mb-4 w-80 h-96 rounded-lg shadow-2xl flex flex-col overflow-hidden sm:w-[450px] sm:h-[620px]">
-      <header className="border-b border-slate-300 p-4 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <StatusBadge />
-          <span className="text-black font-bold">Eloquent AI</span>
-        </div>
-        <Button
-          size="icon"
-          variant="ghost"
-          onClick={toggleWidget}
-          aria-label="Close chat"
-        >
-          <XIcon className="w-5 h-5" />
-        </Button>
+      <header className="border-b border-slate-300 p-2 flex items-center gap-2 h-14">
+        <img src="/vite.svg" alt="Eloquent AI Logo" className="w-7 h-7" />
+        <span className="text-black font-bold">{agentName}</span>
+        <StatusBadge />
       </header>
 
       {isMaintenanceMode && (
@@ -37,12 +28,9 @@ export function ChatOpen({ introductionWrapper }: ChatOpenProps) {
         </div>
       )}
 
-      <section className="flex-1 flex flex-col bg-gray-50 overflow-hidden">
-        {introductionWrapper ? (
-          <div className="p-4">{introductionWrapper}</div>
-        ) : (
-          <Messages />
-        )}
+      <section className="flex-1 flex flex-col gap-4 bg-gray-50 overflow-hidden">
+        {introductionWrapper}
+        <Messages />
       </section>
 
       <ChatInput />

@@ -16,9 +16,6 @@ export function Messages() {
 
   return (
     <div className="flex-1 overflow-y-auto p-4 space-y-2">
-      <div className="w-full flex flex-col items-center justify-center">
-        <span>Eloquent AI</span>
-      </div>
       {messages.length === 0 && !isMaintenanceMode ? (
         <EmptyState />
       ) : (
