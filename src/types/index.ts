@@ -16,27 +16,9 @@ export interface ChatState {
 
 export interface ChatContextType extends ChatState {
   toggleWidget: () => void;
+  clearMessages: () => void;
   sendMessage: (content: string) => Promise<void>;
   setCurrentInput: (input: string) => void;
-  clearMessages: () => void;
+  setOnlineStatus: (isOnline: boolean) => void;
+  setMaintenanceMode: (isMaintenanceMode: boolean) => void;
 }
-
-export interface ChatWidgetProps {
-  isOnline?: boolean;
-  isMaintenanceMode?: boolean;
-  apiKey?: string;
-  customStyles?: {
-    primaryColor?: string;
-    fontFamily?: string;
-  };
-}
-
-export type ChatAction =
-  | { type: "TOGGLE_WIDGET" }
-  | { type: "SET_ONLINE_STATUS"; payload: boolean }
-  | { type: "SET_MAINTENANCE_MODE"; payload: boolean }
-  | { type: "ADD_MESSAGE"; payload: Message }
-  | { type: "SET_MESSAGES"; payload: Message[] }
-  | { type: "SET_LOADING"; payload: boolean }
-  | { type: "SET_CURRENT_INPUT"; payload: string }
-  | { type: "CLEAR_MESSAGES" };

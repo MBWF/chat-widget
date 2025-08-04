@@ -1,10 +1,10 @@
-import React, { useCallback, useRef } from "react";
 import { Textarea } from "@/components/ui";
 import { useChat } from "@/hooks/useChat";
-import { SendButton } from "./send-button";
+import { memo, useCallback } from "react";
 import { InputHelperText } from "./input-helper-text";
+import { SendButton } from "./send-button";
 
-export const ChatInput = React.memo(() => {
+function ChatInput() {
   const {
     currentInput,
     setCurrentInput,
@@ -12,8 +12,6 @@ export const ChatInput = React.memo(() => {
     isMaintenanceMode,
     isLoading,
   } = useChat();
-
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -26,10 +24,6 @@ export const ChatInput = React.memo(() => {
     if (!currentInput.trim() || isMaintenanceMode || isLoading) return;
 
     await sendMessage(currentInput);
-
-    setTimeout(() => {
-      textareaRef.current?.focus();
-    }, 100);
   }, [currentInput, sendMessage, isMaintenanceMode, isLoading]);
 
   const handleKeyDown = useCallback(
@@ -44,20 +38,18 @@ export const ChatInput = React.memo(() => {
 
   const isDisabled = isMaintenanceMode || isLoading;
   const canSend = currentInput.trim().length > 0 && !isDisabled;
-  const maxLength = 500;
+  const maxLength = 200;
 
   return (
     <div className="p-4 border-t border-gray-200">
       <div className="relative">
         <Textarea
-          ref={textareaRef}
           value={currentInput}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
           disabled={isDisabled}
-          className="rounded-2xl resize-none px-4 pr-12 min-h-[44px] max-h-32"
+          className="rounded-2xl resize-none px-4 pr-12"
           maxLength={maxLength}
-          rows={1}
           placeholder={
             isMaintenanceMode
               ? "Chat unavailable during maintenance"
@@ -76,4 +68,6 @@ export const ChatInput = React.memo(() => {
       />
     </div>
   );
-});
+}
+
+export default memo(ChatInput);

@@ -1,11 +1,11 @@
 import type { Message } from "@/types";
-import React from "react";
+import { memo } from "react";
 
 interface MessageBubbleProps {
   message: Message;
 }
 
-export const MessageBubble = React.memo<MessageBubbleProps>(({ message }) => {
+function MessageBubble({ message }: MessageBubbleProps) {
   const isUser = message.sender === "user";
 
   return (
@@ -17,6 +17,7 @@ export const MessageBubble = React.memo<MessageBubbleProps>(({ message }) => {
             : "bg-gray-200 text-gray-800 rounded-bl-sm"
         }`}
       >
+        <span className="text-xs font-bold capitalize">{message.sender}</span>
         <p className="text-sm whitespace-pre-wrap break-words">
           {message.content}
         </p>
@@ -33,4 +34,6 @@ export const MessageBubble = React.memo<MessageBubbleProps>(({ message }) => {
       </div>
     </div>
   );
-});
+}
+
+export default memo(MessageBubble);

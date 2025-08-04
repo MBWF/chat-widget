@@ -1,5 +1,5 @@
 import React from "react";
-import { getStatusColor } from "../../chatWidget/utils";
+import { getStatusColor } from "../../../utils/handle-styling";
 import { useChat } from "@/hooks/useChat";
 
 export const StatusBadge = React.memo(() => {

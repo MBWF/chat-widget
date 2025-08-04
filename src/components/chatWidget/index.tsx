@@ -1,12 +1,26 @@
 import { useChat } from "@/hooks/useChat";
-import React from "react";
-import { ChatProvider } from "../../context/ChatContext";
-import type { ChatWidgetProps } from "../../types";
-import { ChatOpen } from "./chat-open";
-import { FloattingButton } from "./floatting-button";
+import { memo, useEffect } from "react";
+import ChatOpen from "./chat-open";
+import FloattingButton from "./floatting-button";
 
-const ChatWidgetContent = React.memo(() => {
-  const { isOpen } = useChat();
+type ChatWidgetProps = {
+  isOnline?: boolean;
+  isMaintenanceMode?: boolean;
+};
+
+function ChatWidget({
+  isOnline = true,
+  isMaintenanceMode = false,
+}: ChatWidgetProps) {
+  const { isOpen, setOnlineStatus, setMaintenanceMode } = useChat();
+
+  useEffect(() => {
+    setOnlineStatus(isOnline);
+  }, [isOnline, setOnlineStatus]);
+
+  useEffect(() => {
+    setMaintenanceMode(isMaintenanceMode);
+  }, [isMaintenanceMode, setMaintenanceMode]);
 
   return (
     <div className="fixed bottom-4 right-4 z-50">
@@ -14,14 +28,6 @@ const ChatWidgetContent = React.memo(() => {
       <FloattingButton />
     </div>
   );
-});
+}
 
-const ChatWidget: React.FC<ChatWidgetProps> = (props) => {
-  return (
-    <ChatProvider {...props}>
-      <ChatWidgetContent />
-    </ChatProvider>
-  );
-};
-
-export default ChatWidget;
+export default memo(ChatWidget);

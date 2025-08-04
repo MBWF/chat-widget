@@ -1,11 +1,12 @@
 import { Button } from "@/components/ui";
 import { useChat } from "@/hooks/useChat";
 import { cn } from "@/lib/utils";
+import { handleColor } from "@/utils/handle-styling";
 import { MessageCircleMore, XIcon } from "lucide-react";
-import React from "react";
-import { handleColor } from "../utils";
 
-export const FloattingButton = React.memo(() => {
+import { memo } from "react";
+
+function FloattingButton() {
   const { isOnline, isMaintenanceMode, toggleWidget, isOpen } = useChat();
 
   return (
@@ -29,4 +30,6 @@ export const FloattingButton = React.memo(() => {
       </Button>
     </div>
   );
-});
+}
+
+export default memo(FloattingButton);

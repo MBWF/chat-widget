@@ -28,5 +28,3 @@ export const InputHelperText = React.memo<InputHelperTextProps>(
     );
   }
 );
-
-InputHelperText.displayName = "InputHelperText";
