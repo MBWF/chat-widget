@@ -30,7 +30,7 @@ export function ChatInput() {
 
   const isDisabled = isMaintenanceMode || isLoading;
   const canSend = currentInput.trim().length > 0 && !isDisabled;
-  const maxLength = 200;
+  const maxLength = 250;
 
   return (
     <div className="p-4 border-t border-gray-200">
@@ -40,7 +40,7 @@ export function ChatInput() {
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
           disabled={isDisabled}
-          className="rounded-2xl resize-none px-4 pr-12"
+          className="rounded-2xl resize-none px-4 pr-12 max-h-24"
           maxLength={maxLength}
           placeholder={
             isMaintenanceMode

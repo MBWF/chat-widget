@@ -5,6 +5,8 @@ export const useChat = (): ChatContextType => {
   const store = useChatStore();
 
   return {
+    addMessage: store.addMessage,
+    setLoading: store.setLoading,
     isOpen: store.isOpen,
     isOnline: store.isOnline,
     isMaintenanceMode: store.isMaintenanceMode,

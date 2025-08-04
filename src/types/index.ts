@@ -14,11 +14,15 @@ export interface ChatState {
   currentInput: string;
 }
 
-export interface ChatContextType extends ChatState {
+export interface ChatActions {
   toggleWidget: () => void;
   clearMessages: () => void;
-  sendMessage: (content: string) => Promise<void>;
+  addMessage: (message: Message) => void;
+  setLoading: (isLoading: boolean) => void;
   setCurrentInput: (input: string) => void;
   setOnlineStatus: (isOnline: boolean) => void;
+  sendMessage: (content: string) => Promise<void>;
   setMaintenanceMode: (isMaintenanceMode: boolean) => void;
 }
+
+export type ChatContextType = ChatState & ChatActions;

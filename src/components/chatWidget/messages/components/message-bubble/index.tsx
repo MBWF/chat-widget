@@ -25,7 +25,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
             isUser ? "text-blue-100" : "text-gray-500"
           }`}
         >
-          {message.timestamp.toLocaleTimeString([], {
+          {new Date(message.timestamp).toLocaleTimeString([], {
             hour: "2-digit",
             minute: "2-digit",
           })}

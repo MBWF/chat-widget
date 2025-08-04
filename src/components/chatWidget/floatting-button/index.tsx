@@ -7,9 +7,7 @@ import { MessageCircleMore, XIcon } from "lucide-react";
 export function FloattingButton() {
   const { isOnline, isMaintenanceMode, toggleWidget, isOpen } = useChat();
 
-  const handleChangeColor = () => {
-    return handleColor({ isOnline, isMaintenanceMode });
-  };
+  const handleChangeColor = handleColor({ isOnline, isMaintenanceMode });
 
   return (
     <div className="relative">

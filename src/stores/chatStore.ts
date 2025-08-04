@@ -1,87 +1,17 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { Message } from "@/types";
-
-interface ChatState {
-  // Chat state
-  isOpen: boolean;
-  isOnline: boolean;
-  isMaintenanceMode: boolean;
-  messages: Message[];
-  isLoading: boolean;
-  currentInput: string;
-}
-
-interface ChatActions {
-  toggleWidget: () => void;
-  setOnlineStatus: (isOnline: boolean) => void;
-  setMaintenanceMode: (isMaintenanceMode: boolean) => void;
-  addMessage: (message: Message) => void;
-  clearMessages: () => void;
-  setCurrentInput: (input: string) => void;
-  setLoading: (isLoading: boolean) => void;
-  sendMessage: (content: string) => Promise<void>;
-}
-
-type ChatStore = ChatState & ChatActions;
+import type { Message, ChatContextType, ChatState } from "@/types";
 
 const initialState: ChatState = {
   isOpen: false,
   isOnline: true,
-  isMaintenanceMode: false,
-  messages: [],
   isLoading: false,
+  isMaintenanceMode: false,
   currentInput: "",
+  messages: [],
 };
 
-const customStorage = {
-  getItem: (name: string) => {
-    try {
-      const item = localStorage.getItem(name);
-      if (!item) return null;
-
-      const parsed = JSON.parse(item);
-      // Handle the persisted state structure and restore Date objects
-      if (parsed.state && parsed.state.messages) {
-        parsed.state.messages = parsed.state.messages.map((msg: Message) => ({
-          ...msg,
-          timestamp: new Date(msg.timestamp),
-        }));
-      }
-      return parsed;
-    } catch (error) {
-      console.warn("Failed to get item from localStorage:", error);
-      return null;
-    }
-  },
-  setItem: (name: string, value: unknown): void => {
-    try {
-      // Handle the persisted state structure and serialize Date objects
-      const toStore = JSON.parse(JSON.stringify(value));
-      if (toStore.state && toStore.state.messages) {
-        toStore.state.messages = toStore.state.messages.map((msg: Message) => ({
-          ...msg,
-          timestamp:
-            msg.timestamp instanceof Date
-              ? msg.timestamp.toISOString()
-              : msg.timestamp,
-        }));
-      }
-      localStorage.setItem(name, JSON.stringify(toStore));
-    } catch (error) {
-      console.warn("Failed to set item in localStorage:", error);
-    }
-  },
-  removeItem: (name: string): void => {
-    try {
-      localStorage.removeItem(name);
-    } catch (error) {
-      console.warn("Failed to remove item from localStorage:", error);
-    }
-  },
-};
-
-export const useChatStore = create<ChatStore>()(
+export const useChatStore = create<ChatContextType>()(
   persist(
     (set, get) => ({
       ...initialState,
@@ -93,7 +23,6 @@ export const useChatStore = create<ChatStore>()(
         set((state) => ({
           messages: [...state.messages, message],
         })),
-
       clearMessages: () => set({ messages: [] }),
       setCurrentInput: (currentInput: string) => set({ currentInput }),
       setLoading: (isLoading: boolean) => set({ isLoading }),
@@ -150,20 +79,10 @@ export const useChatStore = create<ChatStore>()(
     }),
     {
       name: "chat-widget-messages",
-      storage: customStorage,
       partialize: (state) => ({
         ...initialState,
         messages: state.messages,
       }),
-      onRehydrateStorage: () => (state) => {
-        if (state?.messages) {
-          console.log(
-            "Chat messages rehydrated:",
-            state.messages.length,
-            "messages"
-          );
-        }
-      },
     }
   )
 );
