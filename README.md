@@ -1,38 +1,23 @@
-# Eloquent Chat Widget
+# Chat Widget com IA
 
-A modern, embeddable chat widget built with React, TypeScript, and Zustand for seamless customer support integration.
+Widget de chat moderno e embarcável com integração OpenAI, construído com React e TypeScript.
 
-[![npm version](https://badge.fury.io/js/eloquent-chat-widget.svg)](https://badge.fury.io/js/eloquent-chat-widget)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+## ✨ Características
 
-## ✨ Features
+- 🤖 **IA Integrada**: Respostas automáticas com OpenAI GPT
+- 🎨 **Personalizável**: Fácil customização de cores e estilos
+- 📱 **Responsivo**: Funciona em desktop e mobile
+- 🔧 **Fácil Instalação**: Integração com poucas linhas de código
+- 💾 **Histórico**: Salva conversas automaticamente
+- ⚡ **Leve**: Bundle otimizado e rápido
 
-- 🚀 **Modern Stack**: Built with React 18+, TypeScript, and Zustand
-- 💾 **Persistent Storage**: Automatic message history with localStorage
-- 🎨 **Customizable**: Easy theming and styling options
-- 📱 **Responsive**: Works perfectly on desktop and mobile
-- 🔧 **Easy Integration**: Drop-in component with minimal setup
-- 🎯 **TypeScript**: Full type safety and IntelliSense support
-- ⚡ **Lightweight**: Optimized bundle size with tree-shaking
-- 🔄 **State Management**: Powered by Zustand for optimal performance
-
-## 📦 Installation
+## 📦 Instalação
 
 ```bash
 npm install eloquent-chat-widget
 ```
 
-```bash
-yarn add eloquent-chat-widget
-```
-
-```bash
-pnpm add eloquent-chat-widget
-```
-
-## 🚀 Quick Start
-
-### Basic Usage
+## 🚀 Uso Básico
 
 ```tsx
 import { ChatWidget } from 'eloquent-chat-widget';
@@ -40,14 +25,13 @@ import 'eloquent-chat-widget/styles';
 
 function App() {
   return (
-    <div>
-      <h1>My Website</h1>
-      <ChatWidget 
-        agentName="Support Agent"
-        isOnline={true}
-        isMaintenanceMode={false}
-      />
-    </div>
+    <ChatWidget
+      agentName="Assistente IA"
+      llmConfig={{
+        apiKey: "sua-chave-openai-aqui",
+        model: "gpt-4o-mini"
+      }}
+    />
   );
 }
 ```
@@ -210,97 +194,13 @@ The `CustomStyles` interface provides customization for:
 
 For detailed customization examples and best practices, see the [Customization Guide](CUSTOMIZATION_GUIDE.md).
 
-## 🤖 OpenAI Integration
-
-The ChatWidget now supports real AI-powered conversations through OpenAI's GPT models, providing intelligent responses with streaming support.
-
-### Basic OpenAI Configuration
-
-```tsx
-import { ChatWidget, LLMConfig } from 'eloquent-chat-widget';
-
-const llmConfig: LLMConfig = {
-  apiKey: "sk-your-openai-api-key-here",
-  model: "gpt-3.5-turbo",
-  temperature: 0.7,
-  maxTokens: 1000,
-  systemPrompt: "You are a helpful customer support assistant.",
-  streaming: true
-};
-
-function App() {
-  return (
-    <ChatWidget
-      agentName="AI Support"
-      llmConfig={llmConfig}
-    />
-  );
-}
-```
-
-### Configuration Examples
-
-#### Basic Configuration
-```tsx
-const basicConfig: LLMConfig = {
-  apiKey: "sk-your-openai-api-key-here",
-  model: "gpt-3.5-turbo",
-  temperature: 0.7,
-  maxTokens: 1000,
-  systemPrompt: "You are a helpful assistant.",
-  streaming: true,
-  timeout: 30000
-};
-```
-
-#### Advanced Configuration
-```tsx
-const advancedConfig: LLMConfig = {
-  apiKey: "sk-your-openai-api-key-here",
-  model: "gpt-4-turbo", // Use GPT-4 for better responses
-  temperature: 0.3, // Lower temperature for more focused responses
-  maxTokens: 2000, // Longer responses
-  systemPrompt: `You are a professional customer support assistant for our company.
-    Always be helpful, polite, and provide accurate information.
-    If you don't know something, admit it and offer to help find the answer.`,
-  streaming: true,
-  timeout: 45000 // Longer timeout for GPT-4
-};
-```
-
-#### Customer Support Configuration
-```tsx
-const supportConfig: LLMConfig = {
-  apiKey: "sk-your-openai-api-key-here",
-  model: "gpt-3.5-turbo",
-  temperature: 0.5,
-  maxTokens: 800,
-  systemPrompt: `You are a customer support agent. Be concise, helpful, and professional.
-    Focus on solving the customer's problem quickly and efficiently.`,
-  streaming: true,
-  timeout: 30000
-};
-```
-
-### Configuration Options
-
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `apiKey` | `string` | **Required** | Your OpenAI API key |
-| `model` | `string` | `"gpt-3.5-turbo"` | OpenAI model to use (gpt-3.5-turbo, gpt-4, gpt-4-turbo) |
-| `temperature` | `number` | `0.7` | Response creativity (0.0 to 1.0) |
-| `maxTokens` | `number` | `1000` | Maximum response length |
-| `systemPrompt` | `string` | Default prompt | System prompt to guide AI behavior |
-| `streaming` | `boolean` | `true` | Enable real-time streaming responses |
-| `timeout` | `number` | `30000` | Request timeout in milliseconds |
-
 ### Features
 
 - **🔄 Real-time Streaming**: See AI responses as they're generated
 - **🛡️ Error Handling**: Comprehensive error handling with user-friendly messages
 - **💾 Conversation Memory**: AI remembers the conversation context
 - **🤖 OpenAI Integration**: Powered by GPT-3.5, GPT-4, and other OpenAI models
-- **🎛️ Customizable**: Fine-tune AI behavior with system prompts and parameters
+parameters
 - **🔒 Secure**: API keys are handled securely on the client side
 
 ### Error Handling
@@ -314,17 +214,6 @@ The widget automatically handles various error scenarios:
 - **API errors**: Service unavailable
 
 Users see friendly error messages and can retry failed requests.
-
-### Legacy CSS Override (Not Recommended)
-
-You can still override styles with CSS, but the `customStyles` prop is preferred:
-
-```css
-/* Custom chat widget styles */
-.chat-widget-container {
-  /* Your custom styles */
-}
-```
 
 ## 🔧 Configuration
 
@@ -421,4 +310,4 @@ For support, email your.email@example.com or join our community discussions.
 
 ---
 
-Made with ❤️ by [Your Name](https://github.com/yourusername)
+Made with ❤️ by [Márcio Filho](https://www.linkedin.com/in/marciobwf/)
