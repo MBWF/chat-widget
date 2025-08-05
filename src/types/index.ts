@@ -27,21 +27,16 @@ export interface ChatActions {
 
 export type ChatContextType = ChatState & ChatActions;
 
-export interface CustomStyles {
-  // Main widget container styles
-  container?: string;
+export type ChatPosition = "bottom" | "top" | "left" | "right";
 
-  // Header section styles
+export interface CustomStyles {
+  container?: string;
   header?: string;
   headerLogo?: string;
   headerTitle?: string;
   statusBadge?: string;
-
-  // Maintenance banner styles
   maintenanceBanner?: string;
   maintenanceBannerText?: string;
-
-  // Messages section styles
   messageContainer?: string;
   messageList?: string;
   messageBubble?: string;
@@ -49,16 +44,13 @@ export interface CustomStyles {
   assistantMessageBubble?: string;
   loadingIndicator?: string;
   emptyState?: string;
-
-  // Input section styles
   inputContainer?: string;
   inputField?: string;
   sendButton?: string;
   inputHelperText?: string;
-
-  // Floating button styles
   floatingButton?: string;
   floatingButtonIcon?: string;
+  widgetWrapper?: string;
 }
 
 export interface ChatWidgetProps {
@@ -67,4 +59,6 @@ export interface ChatWidgetProps {
   isMaintenanceMode?: boolean;
   introductionWrapper?: React.ReactNode;
   customStyles?: CustomStyles;
+  position?: ChatPosition;
+  logo?: string;
 }

@@ -1,28 +1,33 @@
+import { StatusBadge } from "@/components/ui";
 import { useChat } from "@/hooks/useChat";
+import { mergeStyles } from "@/lib/utils";
+import type { ChatPosition, CustomStyles } from "@/types";
+import { getPositionClasses } from "@/utils/layout-positions";
 import { Messages } from "../messages";
 import { ChatInput } from "./chat-input";
-import { StatusBadge } from "@/components/ui";
-import { mergeStyles } from "@/lib/utils";
-import type { CustomStyles } from "@/types";
 import { MaintenanceBanner } from "./maintenance-banner";
 
 type ChatOpenProps = {
   introductionWrapper?: React.ReactNode;
   agentName: string;
   customStyles?: CustomStyles;
+  position?: ChatPosition;
+  logo?: string;
 };
 
 export function ChatOpen({
   introductionWrapper,
   agentName,
   customStyles,
+  position = "bottom",
+  logo,
 }: ChatOpenProps) {
   const { isMaintenanceMode } = useChat();
 
   return (
     <div
       className={mergeStyles(
-        "bg-white mb-4 w-80 h-96 rounded-lg shadow-2xl flex flex-col overflow-hidden sm:w-[450px] sm:h-[620px]",
+        getPositionClasses(position),
         customStyles,
         "container"
       )}
@@ -35,7 +40,7 @@ export function ChatOpen({
         )}
       >
         <img
-          src="/vite.svg"
+          src={logo || "/eloquent-ai-logo.jpg"}
           alt="Eloquent AI Logo"
           className={mergeStyles("w-7 h-7", customStyles, "headerLogo")}
         />

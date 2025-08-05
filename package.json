@@ -1,6 +1,6 @@
 {
   "name": "eloquentai-chat-widget",
-  "version": "1.0.5",
+  "version": "1.0.55",
   "main": "./dist/eloquent-chat.umd.js",
   "module": "./dist/eloquent-chat.es.js",
   "types": "./dist/index.d.ts",

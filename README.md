@@ -52,7 +52,7 @@ function App() {
 }
 ```
 
-### Advanced Usage with Custom Introduction
+### Advanced Usage with Custom Logo, Position and Introduction
 
 ```tsx
 import { ChatWidget } from 'eloquent-chat-widget';
@@ -60,13 +60,14 @@ import 'eloquent-chat-widget/styles';
 
 function App() {
   return (
-    <ChatWidget 
+    <ChatWidget
       agentName="Eloquent AI"
+      logo="/my-custom-logo.png"
+      position="top"
       isOnline={true}
       isMaintenanceMode={false}
       introductionWrapper={
         <div className="text-center p-4">
-          <img src="/logo.png" alt="Logo" className="w-12 h-12 mx-auto mb-2" />
           <h3 className="font-bold">Welcome to Support!</h3>
           <p className="text-sm text-gray-600">
             How can we help you today?
@@ -76,6 +77,54 @@ function App() {
     />
   );
 }
+```
+
+### Custom Logo Options
+
+The `logo` prop allows you to customize the header logo:
+
+```tsx
+// Use default logo (no logo prop needed)
+<ChatWidget agentName="Support" />
+
+// Use custom local image
+<ChatWidget
+  agentName="Support"
+  logo="/assets/my-logo.png"
+/>
+
+// Use external URL
+<ChatWidget
+  agentName="Support"
+  logo="https://example.com/logo.png"
+/>
+
+// Combine with custom styles for logo sizing
+<ChatWidget
+  agentName="Support"
+  logo="/my-logo.svg"
+  customStyles={{
+    headerLogo: "w-8 h-8 rounded-full"
+  }}
+/>
+```
+
+### Position Options
+
+The `position` prop controls where the chat window appears relative to the floating button:
+
+```tsx
+// Chat opens below the button (default)
+<ChatWidget agentName="Support" position="bottom" />
+
+// Chat opens above the button
+<ChatWidget agentName="Support" position="top" />
+
+// Chat opens to the left of the button
+<ChatWidget agentName="Support" position="left" />
+
+// Chat opens to the right of the button
+<ChatWidget agentName="Support" position="right" />
 ```
 
 ## 📖 API Reference
@@ -89,6 +138,8 @@ function App() {
 | `isMaintenanceMode` | `boolean` | `false` | Enables maintenance mode banner |
 | `introductionWrapper` | `ReactNode` | `undefined` | Custom welcome message component |
 | `customStyles` | `CustomStyles` | `undefined` | Custom CSS classes for widget components |
+| `position` | `ChatPosition` | `"bottom"` | Position of chat window relative to floating button |
+| `logo` | `string` | `"/vite.svg"` | URL or path to custom logo image for the header |
 
 ### Advanced Usage with Store
 
@@ -153,6 +204,7 @@ The `CustomStyles` interface provides customization for:
 - **Messages**: `messageContainer`, `messageList`, `messageBubble`, `userMessageBubble`, `assistantMessageBubble`
 - **Input**: `inputContainer`, `inputField`, `sendButton`, `inputHelperText`
 - **Floating Button**: `floatingButton`, `floatingButtonIcon`
+- **Layout**: `widgetWrapper` - Widget wrapper container for positioning
 - **Other**: `maintenanceBanner`, `emptyState`, `loadingIndicator`
 
 For detailed customization examples and best practices, see the [Customization Guide](CUSTOMIZATION_GUIDE.md).
@@ -183,7 +235,7 @@ The widget automatically handles:
 Full TypeScript support is included with proper type definitions:
 
 ```tsx
-import type { Message, ChatWidgetProps, CustomStyles } from 'eloquent-chat-widget';
+import type { Message, ChatWidgetProps, CustomStyles, ChatPosition } from 'eloquent-chat-widget';
 
 const customMessage: Message = {
   id: 'custom-1',
@@ -196,6 +248,8 @@ const customStyles: CustomStyles = {
   container: "bg-gradient-to-br from-blue-50 to-indigo-100",
   header: "bg-blue-600 text-white"
 };
+
+const position: ChatPosition = "top";
 ```
 
 ## 🌟 Examples
