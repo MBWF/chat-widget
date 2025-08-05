@@ -4,7 +4,7 @@ function App() {
   return (
     <div className="min-h-screen p-8 bg-gray-50">
       <ChatWidget
-        agentName="AI Assistant"
+        agentName="Eloquent Ai"
         logo="/eloquent-ai-logo.jpg"
         buttonPosition="bottom-right"
         isOnline={true}

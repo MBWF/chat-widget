@@ -4,6 +4,7 @@ import { persist } from "zustand/middleware";
 import OpenAI from "openai";
 
 const initialState: ChatState = {
+  agentName: "AI Assistant",
   isOpen: true,
   isOnline: true,
   isLoading: false,
@@ -21,6 +22,7 @@ export const useChatStore = create<ChatContextType>()(
     (set, get) => ({
       ...initialState,
       toggleWidget: () => set((state) => ({ isOpen: !state.isOpen })),
+      setAgentName: (agentName: string) => set({ agentName }),
       clearMessages: () => set({ messages: [] }),
       setOnlineStatus: (isOnline: boolean) => set({ isOnline }),
       setCurrentInput: (currentInput: string) => set({ currentInput }),

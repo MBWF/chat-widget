@@ -9,7 +9,6 @@ import { MaintenanceBanner } from "./maintenance-banner";
 
 type ChatOpenProps = {
   introductionWrapper?: React.ReactNode;
-  agentName: string;
   customStyles?: CustomStyles;
   buttonPosition?: ButtonPosition;
   logo?: string;
@@ -17,12 +16,11 @@ type ChatOpenProps = {
 
 export function ChatOpen({
   introductionWrapper,
-  agentName,
   customStyles,
   buttonPosition = "bottom-right",
   logo,
 }: ChatOpenProps) {
-  const { isMaintenanceMode } = useChat();
+  const { isMaintenanceMode, agentName } = useChat();
 
   return (
     <div

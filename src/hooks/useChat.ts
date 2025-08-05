@@ -5,6 +5,8 @@ export const useChat = (): ChatContextType => {
   const store = useChatStore();
 
   return {
+    setAgentName: store.setAgentName,
+    agentName: store.agentName,
     llmConfig: store.llmConfig,
     setLoading: store.setLoading,
     isOpen: store.isOpen,

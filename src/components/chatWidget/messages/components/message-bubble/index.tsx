@@ -1,3 +1,4 @@
+import { useChat } from "@/hooks/useChat";
 import { mergeStyles } from "@/lib/utils";
 import type { CustomStyles, Message } from "@/types";
 import { handleMessageStyle } from "@/utils/handle-styling";
@@ -8,6 +9,7 @@ export interface MessageBubbleProps {
 }
 
 export function MessageBubble({ message, customStyles }: MessageBubbleProps) {
+  const { agentName } = useChat();
   const isUser = message.sender === "user";
 
   const bubbleStyleKey = isUser
@@ -38,7 +40,9 @@ export function MessageBubble({ message, customStyles }: MessageBubbleProps) {
           bubbleStyleKey
         )}
       >
-        <span className="text-xs font-bold capitalize">{message.sender}</span>
+        <span className="text-xs font-bold capitalize">
+          {isUser ? "You" : agentName}
+        </span>
         <p className="text-sm whitespace-pre-wrap break-words">
           {message.content}
         </p>

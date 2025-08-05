@@ -16,8 +16,19 @@ function ChatWidget({
   logo,
   llmConfig,
 }: ChatWidgetProps) {
-  const { isOpen, setOnlineStatus, setMaintenanceMode, setLLMConfig } =
-    useChat();
+  const {
+    isOpen,
+    setOnlineStatus,
+    setMaintenanceMode,
+    setLLMConfig,
+    setAgentName,
+  } = useChat();
+
+  useEffect(() => {
+    if (agentName) {
+      setAgentName(agentName);
+    }
+  }, [agentName, setAgentName]);
 
   useEffect(() => {
     setOnlineStatus(isOnline);
@@ -40,7 +51,6 @@ function ChatWidget({
       {isOpen && (
         <ChatOpen
           introductionWrapper={introductionWrapper}
-          agentName={agentName}
           customStyles={customStyles}
           buttonPosition={buttonPosition}
           logo={logo}

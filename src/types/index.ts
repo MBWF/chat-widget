@@ -6,6 +6,7 @@ export interface Message {
 }
 
 export interface ChatState {
+  agentName: string;
   isOpen: boolean;
   isOnline: boolean;
   isMaintenanceMode: boolean;
@@ -17,6 +18,7 @@ export interface ChatState {
 
 export interface ChatActions {
   toggleWidget: () => void;
+  setAgentName: (agentName: string) => void;
   clearMessages: () => void;
   setLoading: (isLoading: boolean) => void;
   setCurrentInput: (input: string) => void;
