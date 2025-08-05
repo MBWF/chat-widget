@@ -12,17 +12,18 @@ export interface ChatState {
   messages: Message[];
   isLoading: boolean;
   currentInput: string;
+  llmConfig: LLMConfig;
 }
 
 export interface ChatActions {
   toggleWidget: () => void;
   clearMessages: () => void;
-  addMessage: (message: Message) => void;
   setLoading: (isLoading: boolean) => void;
   setCurrentInput: (input: string) => void;
   setOnlineStatus: (isOnline: boolean) => void;
   sendMessage: (content: string) => Promise<void>;
   setMaintenanceMode: (isMaintenanceMode: boolean) => void;
+  setLLMConfig: (llmConfig: LLMConfig) => void;
 }
 
 export type ChatContextType = ChatState & ChatActions;
@@ -53,6 +54,11 @@ export interface CustomStyles {
   widgetWrapper?: string;
 }
 
+export interface LLMConfig {
+  apiKey: string;
+  model: string;
+}
+
 export interface ChatWidgetProps {
   agentName: string;
   isOnline?: boolean;
@@ -61,4 +67,5 @@ export interface ChatWidgetProps {
   customStyles?: CustomStyles;
   position?: ChatPosition;
   logo?: string;
+  llmConfig?: LLMConfig;
 }

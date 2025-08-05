@@ -140,6 +140,7 @@ The `position` prop controls where the chat window appears relative to the float
 | `customStyles` | `CustomStyles` | `undefined` | Custom CSS classes for widget components |
 | `position` | `ChatPosition` | `"bottom"` | Position of chat window relative to floating button |
 | `logo` | `string` | `"/vite.svg"` | URL or path to custom logo image for the header |
+| `llmConfig` | `LLMConfig` | `undefined` | LLM configuration for AI-powered responses |
 
 ### Advanced Usage with Store
 
@@ -208,6 +209,111 @@ The `CustomStyles` interface provides customization for:
 - **Other**: `maintenanceBanner`, `emptyState`, `loadingIndicator`
 
 For detailed customization examples and best practices, see the [Customization Guide](CUSTOMIZATION_GUIDE.md).
+
+## 🤖 OpenAI Integration
+
+The ChatWidget now supports real AI-powered conversations through OpenAI's GPT models, providing intelligent responses with streaming support.
+
+### Basic OpenAI Configuration
+
+```tsx
+import { ChatWidget, LLMConfig } from 'eloquent-chat-widget';
+
+const llmConfig: LLMConfig = {
+  apiKey: "sk-your-openai-api-key-here",
+  model: "gpt-3.5-turbo",
+  temperature: 0.7,
+  maxTokens: 1000,
+  systemPrompt: "You are a helpful customer support assistant.",
+  streaming: true
+};
+
+function App() {
+  return (
+    <ChatWidget
+      agentName="AI Support"
+      llmConfig={llmConfig}
+    />
+  );
+}
+```
+
+### Configuration Examples
+
+#### Basic Configuration
+```tsx
+const basicConfig: LLMConfig = {
+  apiKey: "sk-your-openai-api-key-here",
+  model: "gpt-3.5-turbo",
+  temperature: 0.7,
+  maxTokens: 1000,
+  systemPrompt: "You are a helpful assistant.",
+  streaming: true,
+  timeout: 30000
+};
+```
+
+#### Advanced Configuration
+```tsx
+const advancedConfig: LLMConfig = {
+  apiKey: "sk-your-openai-api-key-here",
+  model: "gpt-4-turbo", // Use GPT-4 for better responses
+  temperature: 0.3, // Lower temperature for more focused responses
+  maxTokens: 2000, // Longer responses
+  systemPrompt: `You are a professional customer support assistant for our company.
+    Always be helpful, polite, and provide accurate information.
+    If you don't know something, admit it and offer to help find the answer.`,
+  streaming: true,
+  timeout: 45000 // Longer timeout for GPT-4
+};
+```
+
+#### Customer Support Configuration
+```tsx
+const supportConfig: LLMConfig = {
+  apiKey: "sk-your-openai-api-key-here",
+  model: "gpt-3.5-turbo",
+  temperature: 0.5,
+  maxTokens: 800,
+  systemPrompt: `You are a customer support agent. Be concise, helpful, and professional.
+    Focus on solving the customer's problem quickly and efficiently.`,
+  streaming: true,
+  timeout: 30000
+};
+```
+
+### Configuration Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `apiKey` | `string` | **Required** | Your OpenAI API key |
+| `model` | `string` | `"gpt-3.5-turbo"` | OpenAI model to use (gpt-3.5-turbo, gpt-4, gpt-4-turbo) |
+| `temperature` | `number` | `0.7` | Response creativity (0.0 to 1.0) |
+| `maxTokens` | `number` | `1000` | Maximum response length |
+| `systemPrompt` | `string` | Default prompt | System prompt to guide AI behavior |
+| `streaming` | `boolean` | `true` | Enable real-time streaming responses |
+| `timeout` | `number` | `30000` | Request timeout in milliseconds |
+
+### Features
+
+- **🔄 Real-time Streaming**: See AI responses as they're generated
+- **🛡️ Error Handling**: Comprehensive error handling with user-friendly messages
+- **💾 Conversation Memory**: AI remembers the conversation context
+- **🤖 OpenAI Integration**: Powered by GPT-3.5, GPT-4, and other OpenAI models
+- **🎛️ Customizable**: Fine-tune AI behavior with system prompts and parameters
+- **🔒 Secure**: API keys are handled securely on the client side
+
+### Error Handling
+
+The widget automatically handles various error scenarios:
+
+- **Authentication errors**: Invalid API keys
+- **Rate limiting**: Too many requests
+- **Network errors**: Connection issues
+- **Timeouts**: Slow responses
+- **API errors**: Service unavailable
+
+Users see friendly error messages and can retry failed requests.
 
 ### Legacy CSS Override (Not Recommended)
 

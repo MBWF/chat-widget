@@ -2,7 +2,7 @@ import { useChat } from "@/hooks/useChat";
 import { mergeStyles } from "@/lib/utils";
 import type { CustomStyles } from "@/types";
 import { useEffect, useRef } from "react";
-import { LoadingIndicator, MessageBubble } from "./components";
+import { EmptyState, LoadingIndicator, MessageBubble } from "./components";
 
 type MessagesProps = {
   customStyles?: CustomStyles;
@@ -30,7 +30,10 @@ export function Messages({ customStyles, introductionWrapper }: MessagesProps) {
       )}
     >
       {introductionWrapper}
-      {messages.length !== 0 &&
+      {messages.length === 0 && !isMaintenanceMode && !introductionWrapper && (
+        <EmptyState customStyles={customStyles} />
+      )}
+      {messages.length > 0 &&
         !isMaintenanceMode &&
         messages.map((message) => (
           <MessageBubble

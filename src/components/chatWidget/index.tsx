@@ -14,8 +14,10 @@ function ChatWidget({
   customStyles,
   position = "bottom",
   logo,
+  llmConfig,
 }: ChatWidgetProps) {
-  const { isOpen, setOnlineStatus, setMaintenanceMode } = useChat();
+  const { isOpen, setOnlineStatus, setMaintenanceMode, setLLMConfig } =
+    useChat();
 
   useEffect(() => {
     setOnlineStatus(isOnline);
@@ -24,6 +26,12 @@ function ChatWidget({
   useEffect(() => {
     setMaintenanceMode(isMaintenanceMode);
   }, [isMaintenanceMode, setMaintenanceMode]);
+
+  useEffect(() => {
+    if (llmConfig) {
+      setLLMConfig(llmConfig);
+    }
+  }, [llmConfig, setLLMConfig]);
 
   return (
     <div

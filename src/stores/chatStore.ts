@@ -1,6 +1,7 @@
+import type { ChatContextType, ChatState, LLMConfig, Message } from "@/types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { Message, ChatContextType, ChatState } from "@/types";
+import OpenAI from "openai";
 
 const initialState: ChatState = {
   isOpen: true,
@@ -9,6 +10,10 @@ const initialState: ChatState = {
   isMaintenanceMode: false,
   currentInput: "",
   messages: [],
+  llmConfig: {
+    apiKey: "",
+    model: "",
+  },
 };
 
 export const useChatStore = create<ChatContextType>()(
@@ -16,16 +21,13 @@ export const useChatStore = create<ChatContextType>()(
     (set, get) => ({
       ...initialState,
       toggleWidget: () => set((state) => ({ isOpen: !state.isOpen })),
-      setOnlineStatus: (isOnline: boolean) => set({ isOnline }),
-      setMaintenanceMode: (isMaintenanceMode: boolean) =>
-        set({ isMaintenanceMode }),
-      addMessage: (message: Message) =>
-        set((state) => ({
-          messages: [...state.messages, message],
-        })),
       clearMessages: () => set({ messages: [] }),
+      setOnlineStatus: (isOnline: boolean) => set({ isOnline }),
       setCurrentInput: (currentInput: string) => set({ currentInput }),
       setLoading: (isLoading: boolean) => set({ isLoading }),
+      setMaintenanceMode: (isMaintenanceMode: boolean) =>
+        set({ isMaintenanceMode }),
+      setLLMConfig: (llmConfig: LLMConfig) => set({ llmConfig }),
       sendMessage: async (content: string) => {
         const state = get();
         if (!content.trim() || state.isMaintenanceMode) return;
@@ -43,16 +45,28 @@ export const useChatStore = create<ChatContextType>()(
           isLoading: true,
         }));
 
-        try {
-          // Simulate API delay
-          await new Promise((resolve) =>
-            setTimeout(resolve, 1000 + Math.random() * 2000)
-          );
+        const client = new OpenAI({
+          apiKey: state.llmConfig.apiKey,
+          dangerouslyAllowBrowser: true,
+        });
 
-          // Mock response - replace with actual LLM API call
+        try {
+          const response = await client.chat.completions.create({
+            model: state.llmConfig.model,
+            messages: [
+              ...state.messages.map((m) => ({
+                role: m.sender as "user" | "assistant",
+                content: m.content,
+              })),
+              { role: "user", content: content.trim() },
+            ],
+          });
+
+          const assistantContent = response.choices[0]?.message?.content || "";
+
           const assistantMessage: Message = {
             id: `assistant-${Date.now()}`,
-            content: `Thank you for your message: "${content}". This is a mock response. Please integrate with your preferred LLM API.`,
+            content: assistantContent,
             sender: "assistant",
             timestamp: new Date(),
           };
@@ -62,14 +76,13 @@ export const useChatStore = create<ChatContextType>()(
             isLoading: false,
           }));
         } catch (error) {
-          console.error("Failed to send message:", error);
+          console.error("Erro na API OpenAI:", error);
           const errorMessage: Message = {
             id: `error-${Date.now()}`,
-            content: "Sorry, I encountered an error. Please try again.",
+            content: "Erro de conexão com a OpenAI. Tente novamente.",
             sender: "assistant",
             timestamp: new Date(),
           };
-
           set((state) => ({
             messages: [...state.messages, errorMessage],
             isLoading: false,

@@ -26,6 +26,11 @@ export interface CustomStyles {
   widgetWrapper?: string;
 }
 
+export interface LLMConfig {
+  apiKey: string;
+  model: string;
+}
+
 export interface ChatWidgetProps {
   agentName: string;
   isOnline?: boolean;
@@ -34,6 +39,7 @@ export interface ChatWidgetProps {
   customStyles?: CustomStyles;
   position?: ChatPosition;
   logo?: string;
+  llmConfig?: LLMConfig;
 }
 
 declare const ChatWidget: React.ComponentType<ChatWidgetProps>;

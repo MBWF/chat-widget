@@ -5,7 +5,7 @@ export const useChat = (): ChatContextType => {
   const store = useChatStore();
 
   return {
-    addMessage: store.addMessage,
+    llmConfig: store.llmConfig,
     setLoading: store.setLoading,
     isOpen: store.isOpen,
     isOnline: store.isOnline,
@@ -19,5 +19,6 @@ export const useChat = (): ChatContextType => {
     clearMessages: store.clearMessages,
     setOnlineStatus: store.setOnlineStatus,
     setMaintenanceMode: store.setMaintenanceMode,
+    setLLMConfig: store.setLLMConfig,
   };
 };

@@ -1,5 +1,5 @@
 import { mergeStyles } from "@/lib/utils";
-import type { Message, CustomStyles } from "@/types";
+import type { CustomStyles, Message } from "@/types";
 import { handleMessageStyle } from "@/utils/handle-styling";
 
 export interface MessageBubbleProps {
