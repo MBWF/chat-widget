@@ -1,34 +1,52 @@
-import type { ChatPosition } from "@/types";
+import type { ButtonPosition } from "@/types";
 
-export const getLayoutClasses = (position: ChatPosition): string => {
-  switch (position) {
-    case "top":
-      return "flex flex-col-reverse gap-2";
-    case "left":
-      return "flex flex-row-reverse gap-2 items-end";
-    case "right":
-      return "flex flex-row gap-2 items-end";
-    case "bottom":
+export const getButtonPositionClasses = (
+  buttonPosition: ButtonPosition = "bottom-right"
+): string => {
+  const baseClasses = "fixed z-50";
+
+  switch (buttonPosition) {
+    case "bottom-right":
+      return `${baseClasses} bottom-4 right-4`;
+    case "bottom-center":
+      return `${baseClasses} bottom-4 left-1/2 transform -translate-x-1/2`;
+    case "bottom-left":
+      return `${baseClasses} bottom-4 left-4`;
+    case "top-right":
+      return `${baseClasses} top-4 right-4`;
+    case "top-center":
+      return `${baseClasses} top-4 left-1/2 transform -translate-x-1/2`;
+    case "top-left":
+      return `${baseClasses} top-4 left-4`;
     default:
-      return "flex flex-col gap-2";
+      return `${baseClasses} bottom-4 right-4`;
   }
 };
 
-export const getPositionClasses = (
-  position: ChatPosition = "bottom"
+export const getChatWindowPositionClasses = (
+  buttonPosition: ButtonPosition = "bottom-right"
 ): string => {
   const baseClasses =
-    "bg-white w-80 h-96 rounded-lg shadow-2xl flex flex-col overflow-hidden sm:w-[450px] sm:h-[620px]";
+    "fixed bg-white w-80 h-96 rounded-lg shadow-2xl flex flex-col overflow-hidden sm:w-[450px] sm:h-[620px] z-40";
 
-  switch (position) {
-    case "top":
-      return `${baseClasses} mt-4`;
-    case "left":
-      return `${baseClasses} mr-4`;
-    case "right":
-      return `${baseClasses} ml-4`;
-    case "bottom":
+  switch (buttonPosition) {
+    case "bottom-right":
+      return `${baseClasses} bottom-20 right-4`;
+    case "bottom-center":
+      return `${baseClasses} bottom-20 left-1/2 transform -translate-x-1/2`;
+    case "bottom-left":
+      return `${baseClasses} bottom-20 left-4`;
+    case "top-right":
+      return `${baseClasses} top-20 right-4`;
+    case "top-center":
+      return `${baseClasses} top-20 left-1/2 transform -translate-x-1/2`;
+    case "top-left":
+      return `${baseClasses} top-20 left-4`;
     default:
-      return `${baseClasses} mb-4`;
+      return `${baseClasses} bottom-20 right-4`;
   }
+};
+
+export const getLayoutClasses = (): string => {
+  return "flex flex-col gap-2";
 };

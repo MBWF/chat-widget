@@ -12,7 +12,7 @@ function ChatWidget({
   isMaintenanceMode = false,
   introductionWrapper,
   customStyles,
-  position = "bottom",
+  buttonPosition = "bottom-right",
   logo,
   llmConfig,
 }: ChatWidgetProps) {
@@ -35,22 +35,21 @@ function ChatWidget({
 
   return (
     <div
-      className={mergeStyles(
-        getLayoutClasses(position),
-        customStyles,
-        "widgetWrapper"
-      )}
+      className={mergeStyles(getLayoutClasses(), customStyles, "widgetWrapper")}
     >
       {isOpen && (
         <ChatOpen
           introductionWrapper={introductionWrapper}
           agentName={agentName}
           customStyles={customStyles}
-          position={position}
+          buttonPosition={buttonPosition}
           logo={logo}
         />
       )}
-      <FloattingButton customStyles={customStyles} />
+      <FloattingButton
+        customStyles={customStyles}
+        buttonPosition={buttonPosition}
+      />
     </div>
   );
 }

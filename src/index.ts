@@ -4,6 +4,6 @@ export { ChatWidget } from "./components/chatWidget";
 export type {
   ChatWidgetProps,
   CustomStyles,
-  ChatPosition,
+  ButtonPosition,
   LLMConfig,
 } from "./types";

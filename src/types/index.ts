@@ -28,7 +28,13 @@ export interface ChatActions {
 
 export type ChatContextType = ChatState & ChatActions;
 
-export type ChatPosition = "bottom" | "top" | "left" | "right";
+export type ButtonPosition =
+  | "bottom-right"
+  | "bottom-center"
+  | "bottom-left"
+  | "top-right"
+  | "top-center"
+  | "top-left";
 
 export interface CustomStyles {
   container?: string;
@@ -65,7 +71,7 @@ export interface ChatWidgetProps {
   isMaintenanceMode?: boolean;
   introductionWrapper?: React.ReactNode;
   customStyles?: CustomStyles;
-  position?: ChatPosition;
+  buttonPosition?: ButtonPosition;
   logo?: string;
   llmConfig?: LLMConfig;
 }

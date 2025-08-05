@@ -1,8 +1,8 @@
 import { StatusBadge } from "@/components/ui";
 import { useChat } from "@/hooks/useChat";
 import { mergeStyles } from "@/lib/utils";
-import type { ChatPosition, CustomStyles } from "@/types";
-import { getPositionClasses } from "@/utils/layout-positions";
+import type { ButtonPosition, CustomStyles } from "@/types";
+import { getChatWindowPositionClasses } from "@/utils/layout-positions";
 import { Messages } from "../messages";
 import { ChatInput } from "./chat-input";
 import { MaintenanceBanner } from "./maintenance-banner";
@@ -11,7 +11,7 @@ type ChatOpenProps = {
   introductionWrapper?: React.ReactNode;
   agentName: string;
   customStyles?: CustomStyles;
-  position?: ChatPosition;
+  buttonPosition?: ButtonPosition;
   logo?: string;
 };
 
@@ -19,7 +19,7 @@ export function ChatOpen({
   introductionWrapper,
   agentName,
   customStyles,
-  position = "bottom",
+  buttonPosition = "bottom-right",
   logo,
 }: ChatOpenProps) {
   const { isMaintenanceMode } = useChat();
@@ -27,7 +27,7 @@ export function ChatOpen({
   return (
     <div
       className={mergeStyles(
-        getPositionClasses(position),
+        getChatWindowPositionClasses(buttonPosition),
         customStyles,
         "container"
       )}

@@ -52,11 +52,7 @@ export function ChatInput({ customStyles }: ChatInputProps) {
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
           disabled={isDisabled}
-          className={mergeStyles(
-            "rounded-2xl resize-none px-4 pr-12 max-h-24",
-            customStyles,
-            "inputField"
-          )}
+          className={mergeStyles("", customStyles, "inputField")}
           maxLength={maxLength}
           placeholder={
             isMaintenanceMode

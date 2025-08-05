@@ -2,22 +2,28 @@ import { Button } from "@/components/ui";
 import { useChat } from "@/hooks/useChat";
 import { mergeStyles } from "@/lib/utils";
 import { handleColor } from "@/utils/handle-styling";
+import { getButtonPositionClasses } from "@/utils/layout-positions";
 import { MessageCircleMore, XIcon } from "lucide-react";
-import type { CustomStyles } from "@/types";
+import type { CustomStyles, ButtonPosition } from "@/types";
 
 type FloattingButtonProps = {
   customStyles?: CustomStyles;
+  buttonPosition?: ButtonPosition;
 };
 
-export function FloattingButton({ customStyles }: FloattingButtonProps) {
+export function FloattingButton({
+  customStyles,
+  buttonPosition = "bottom-right",
+}: FloattingButtonProps) {
   const { isOnline, isMaintenanceMode, toggleWidget, isOpen } = useChat();
 
   const handleChangeColor = handleColor({ isOnline, isMaintenanceMode });
 
   const defaultButtonClasses = `w-14 h-14 rounded-full shadow-lg transition-all duration-200 hover:scale-105 ${handleChangeColor}`;
+  const positionClasses = getButtonPositionClasses(buttonPosition);
 
   return (
-    <div className="relative">
+    <div className={positionClasses}>
       <Button
         aria-label={isOpen ? "Close chat" : "Open chat"}
         onClick={toggleWidget}
